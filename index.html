@@ -3,25 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Birthday Greeting</title>
+    <title>Birthday Greeting</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
-        h1 { color: #FF69B4; }
-        .birthday-message { font-size: 24px; margin: 20px 0; }
-        .whatsapp-button { background-color: #25D366; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
-        .whatsapp-button a { color: white; text-decoration: none; }
+        body {
+            background: linear-gradient(to right, #ff7f50, #ffb6c1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        #container {
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+        .fade {
+            animation: fade 1s;
+        }
+        @keyframes fade {
+            from { opacity: 0; } 
+            to { opacity: 1; }
+        }
+        .bear {
+            width: 100px;
+            cursor: pointer;
+            animation: jiggle 0.5s infinite alternate;
+        }
+        @keyframes jiggle {
+            0% { transform: translate(0); }
+            100% { transform: translate(5px); }
+        }
     </style>
 </head>
 <body>
-    <h1>Happy Birthday!</h1>
-    <div class="birthday-message">Wishing you a day filled with love, joy, and surprises!</div>
-    <button class="whatsapp-button"><a href="https://wa.me/?text=Happy%20Birthday!%20Check%20out%20this%20interactive%20birthday%20greeting!%20[YOUR_LINK_HERE]">Share on WhatsApp</a></button>
+    <div id="container" class="fade">
+        <h1>Happy Birthday!</h1>
+        <img src="bear.png" class="bear" id="bear" alt="Bear" />
+        <p id="message" class="hidden">You clicked the bear!</p>
+        <button id="quizButton">Start Quiz</button>
+        <div id="quiz" class="hidden">
+            <h2>Birthday Quiz</h2>
+            <form id="quizForm">
+                <p>1. When is your birthday?</p>
+                <input type="date" name="birthday" required>
+                <p>2. What's your favorite cake flavor?</p>
+                <input type="text" name="cake" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div id="proTips" class="hidden">
+            <h2>Pro Tips</h2>
+            <p>Make sure to eat lots of cake!</p>
+        </div>
+        <audio id="backgroundMusic" loop>
+            <source src="birthday_music.mp3" type="audio/mpeg">
+        </audio>
+        <button id="playMusic">Play Music</button>
+    </div>
     <script>
-        // Function to generate shareable link
-        function generateShareableLink() {
-            return window.location.href;
-        }
-        // You can call this function elsewhere or display it if needed
+        document.getElementById('bear').addEventListener('click', function() {
+            document.getElementById('message').classList.remove('hidden');
+        });
+
+        document.getElementById('quizButton').addEventListener('click', function() {
+            document.getElementById('quiz').classList.remove('hidden');
+            this.classList.add('hidden');
+        });
+
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Thank you for participating in the quiz!');
+            document.getElementById('proTips').classList.remove('hidden');
+        });
+
+        document.getElementById('playMusic').addEventListener('click', function() {
+            var music = document.getElementById('backgroundMusic');
+            music.play();
+        });
     </script>
 </body>
 </html>
