@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Birthday Greeting</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        h1 { color: #FF69B4; }
+        .birthday-message { font-size: 24px; margin: 20px 0; }
+        .whatsapp-button { background-color: #25D366; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        .whatsapp-button a { color: white; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <h1>Happy Birthday!</h1>
+    <div class="birthday-message">Wishing you a day filled with love, joy, and surprises!</div>
+    <button class="whatsapp-button"><a href="https://wa.me/?text=Happy%20Birthday!%20Check%20out%20this%20interactive%20birthday%20greeting!%20[YOUR_LINK_HERE]">Share on WhatsApp</a></button>
+    <script>
+        // Function to generate shareable link
+        function generateShareableLink() {
+            return window.location.href;
+        }
+        // You can call this function elsewhere or display it if needed
+    </script>
+</body>
+</html>
