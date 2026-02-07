@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Nisha ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Comic Sans MS', cursive;
+  background: radial-gradient(circle, #ffd6e8, #ff9a9e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.game {
+  background: white;
+  border-radius: 30px;
+  padding: 30px;
+  text-align: center;
+  width: 360px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+  animation: pop 1s ease;
+  z-index: 5;
+}
+
+h1 { color: #ff4d6d; }
+
+#bear {
+  font-size: 100px;
+  cursor: pointer;
+  animation: wiggle 1.2s infinite;
+}
+
+#heart {
+  font-size: 60px;
+  display: none;
+  animation: explode 0.8s ease;
+}
+
+#message {
+  font-size: 18px;
+  min-height: 70px;
+}
+
+.final { display:none; animation: pop 1.5s ease forwards; }
+
+/* QUIZ */
+#quizBox button { width:120px; margin:8px; }
+
+/* HUG */
+.hug-scene {
+  position: relative;
+  height: 140px;
+  margin-top: 20px;
+}
+.hug-bear {
+  font-size: 80px;
+  position: absolute;
+  top: 30px;
+  transition: all 1s ease;
+}
+.left { left:-120px; }
+.right { right:-120px; }
+.hugged-left { left:95px; transform:scale(1.3); }
+.hugged-right { right:95px; transform:scale(1.3); }
+.hug-bounce { animation: hugBounce 0.6s infinite; }
+
+/* PRO TIPS */
+.fade-tip {
+  color:#ff4d6d;
+  font-style:italic;
+  opacity:0;
+  animation: fadeIn 2s forwards;
+}
+
+button,input {
+  margin-top:10px;
+  padding:12px;
+  border-radius:25px;
+  font-size:16px;
+}
+button {
+  border:none;
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
+}
+input {
+  width:90%;
+  border:1px solid #ccc;
+  text-align:center;
+}
+
+@keyframes wiggle {
+  0%,100%{transform:rotate(0)}
+  25%{transform:rotate(8deg)}
+  75%{transform:rotate(-8deg)}
+}
+@keyframes explode {
+  0%{transform:scale(0);opacity:0}
+  60%{transform:scale(2);opacity:1}
+  100%{transform:scale(1);opacity:0}
+}
+@keyframes pop {
+  from{transform:scale(0)}
+  to{transform:scale(1)}
+}
+@keyframes hugBounce {
+  0%,100%{transform:scale(1.3)}
+  50%{transform:scale(1.4)}
+}
+@keyframes fadeIn {
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎮 GAME START -->
+<div class="game" id="game">
+  <h1>🐻 Birthday Love Game ❤️</h1>
+  <p>Tap the bear gently 😘</p>
+  <div id="bear" onclick="collectLove()">🐻</div>
+  <div id="heart">💖</div>
+  <p id="message">The bear has a secret 😄</p>
+</div>
+
+<!-- 💖 FINAL SECTION -->
+<div class="game final" id="final">
+
+<h1>🎂 Happy Birthday Nisha ❤️</h1>
+
+<p>
+Today isn’t special just because it’s your birthday…<br>
+It’s special because <b>YOU exist</b> 🥹✨
+</p>
+
+<!-- 😏 QUIZ -->
+<div id="quizBox">
+  <p id="quizQuestion">
+    Nisha 🤍 — do you feel safe and calm when you think about us?
+  </p>
+  <button onclick="answer(true)">YES 😍</button>
+  <button onclick="answer(false)">NO 😏</button>
+  <p id="quizResponse"></p>
+</div>
+
+<!-- 🧸 HUG -->
+<div class="hug-scene">
+  <div id="leftBear" class="hug-bear left">🐻</div>
+  <div id="rightBear" class="hug-bear right">🐻</div>
+</div>
+
+<button id="comeHereBtn" onclick="hugNow()" style="display:none;">
+Come Here 🤗
+</button>
+
+<p id="loveLine" style="font-size:22px;">
+I love you endlessly ❤️
+</p>
+
+<!-- 😅 PRO TIPS -->
+<div id="proTipBox" style="margin-top:15px;">
+  <p>Pro Tip 😅</p>
+  <p id="proTipText" class="fade-tip">
+    Warning: This hug may cause missing me 🤍
+  </p>
+  <button onclick="nextTip()">Another tip 😜</button>
+</div>
+
+<!-- 💌 REPLY -->
+<div>
+  <p>Reply to me 💌</p>
+  <input id="replyText" placeholder="Say something cute 🥹">
+  <br><br>
+  <button onclick="sendReply()">Send to You ❤️</button>
+</div>
+
+</div>
+
+<!-- 🎵 MUSIC -->
+<audio id="music" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
+
+<script>
+let clicks=0, musicStarted=false;
+
+const messages=[
+"Nisha 😘",
+"You are dangerously cute 😍",
+"This bear is falling for you 🐻💓",
+"So am I… every single day 🥹",
+"Okay… one last tap 💖"
+];
+
+function collectLove(){
+  if(!musicStarted){
+    music.play(); musicStarted=true;
+  }
+  heart.style.display="block";
+  setTimeout(()=>heart.style.display="none",600);
+  if(clicks<messages.length){
+    message.innerHTML=messages[clicks++];
+  }else{
+    game.style.display="none";
+    final.style.display="block";
+  }
+}
+
+/* QUIZ QUESTIONS (SET 2,3,4) */
+const questions=[
+"Nisha 🤍 — do you feel safe and calm when you think about us?",
+"Nisha 😏 — are you blushing right now and pretending you’re not?",
+"Nisha 🥹 — will you let me love you a little more every day from now on?"
+];
+
+const yesReplies=[
+"My heart feels so warm hearing that 🥹❤️",
+"Okay wow… you’re too cute 😍",
+"That means everything to me 🤍"
+];
+
+const noReplies=[
+"I think that’s a shy YES 😏",
+"I’ll take that as a maybe 😜",
+"I’ll still choose you ❤️"
+];
+
+let q=0;
+function answer(isYes){
+  quizResponse.innerHTML=isYes?yesReplies[q]:noReplies[q];
+  q++;
+  if(q<questions.length){
+    setTimeout(()=>{
+      quizQuestion.innerHTML=questions[q];
+      quizResponse.innerHTML="";
+    },1000);
+  }else{
+    setTimeout(()=>{
+      quizBox.style.display="none";
+      comeHereBtn.style.display="inline-block";
+    },1200);
+  }
+}
+
+/* HUG */
+function hugNow(){
+  leftBear.classList.add("hugged-left","hug-bounce");
+  rightBear.classList.add("hugged-right","hug-bounce");
+  loveLine.innerHTML="This is me holding you tight… today and always 🤍";
+  comeHereBtn.style.display="none";
+  startProTips();
+}
+
+/* PRO TIPS */
+const proTips=[
+"Warning: This hug may cause missing me 🤍",
+"Side effects include smiling at your phone 😌📱",
+"Nisha 😏 if you felt butterflies… yes, that was me",
+"This website works best when you think about us 💖",
+"Final tip 🥹: Nisha, you are deeply, genuinely, endlessly loved ❤️"
+];
+let tipIndex=0;
+function nextTip(){
+  tipIndex++;
+  if(tipIndex<proTips.length){
+    proTipText.innerHTML=proTips[tipIndex];
+    proTipText.classList.remove("fade-tip");
+    void proTipText.offsetWidth;
+    proTipText.classList.add("fade-tip");
+  }
+}
+function startProTips(){
+  setInterval(nextTip,4000);
+}
+
+/* REPLY */
+function sendReply(){
+  const t=replyText.value;
+  if(!t) return alert("Type something first 😅❤️");
+  window.open(
+   "https://wa.me/YOUR_WHATSAPP_NUMBER?text="+
+   encodeURIComponent("Nisha replied 💖:\n\n"+t),
+   "_blank"
+  );
+}
+</script>
+
+</body>
+</html>
